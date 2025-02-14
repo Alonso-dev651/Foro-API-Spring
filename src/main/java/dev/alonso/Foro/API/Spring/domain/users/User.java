@@ -47,6 +47,14 @@ public class User {
     @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Review> reviews;
 
+    public User(DataCreateUser dataCreateUser, String hashedPassword) {
+        this.username = dataCreateUser.username();
+        this.credential = new Credential();
+        this.credential.setEmail(dataCreateUser.credential().getEmail());
+        this.credential.setPassword(hashedPassword);
+        this.credential.setUser(this); // Relación bidireccional
+    }
+
     //@PrePersist para inicializar dateCreated
     //Se asegura de que dateCreated siempre tenga un valor antes de ser guardado en la BD.
     @PrePersist

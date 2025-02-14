@@ -27,6 +27,9 @@ public class Reply {
     @Column(nullable = false)
     private Integer likes = 0;
 
+    @Column(nullable = false)
+    private Boolean active;
+
     @Column(nullable = false, updatable = false)
     private LocalDateTime dateCreated;
 

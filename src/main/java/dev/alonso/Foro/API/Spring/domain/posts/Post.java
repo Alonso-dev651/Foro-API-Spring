@@ -44,6 +44,9 @@ public class Post {
     @Column(nullable = false)
     private Double votesAverage = 0.0;
 
+    @Column(nullable = false)
+    private Boolean active;
+
     @Column(nullable = false, updatable = false)
     private LocalDateTime dateCreated;
 
