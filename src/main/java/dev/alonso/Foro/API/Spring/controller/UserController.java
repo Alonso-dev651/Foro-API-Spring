@@ -29,7 +29,17 @@ public class UserController {
         return ResponseEntity.status(HttpStatus.CREATED).body(dataReturnUser);
     }
 
-
+    @GetMapping("/{username}")
+    @Transactional
+    public ResponseEntity<DataReturnUser> thisUser(@PathVariable String username){
+        if (userRepository.existsByUsername(username)){
+            User existsUser = userRepository.getReferenceByUsername(username);
+            DataReturnUser dataReturnUser = returnDataUser(existsUser);
+            return ResponseEntity.status(HttpStatus.OK).body(dataReturnUser);
+        }else {
+            return ResponseEntity.badRequest().build();
+        }
+    }
 
     @PutMapping("/update/{id}")
     @Transactional
