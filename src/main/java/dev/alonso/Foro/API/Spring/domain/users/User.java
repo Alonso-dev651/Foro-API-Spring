@@ -55,6 +55,18 @@ public class User {
         this.credential.setUser(this); // Relación bidireccional
     }
 
+    public void updateUser(User updateUser, DataUpdateUser dataUpdateUser){
+        if (dataUpdateUser.nickname() != null) {
+            updateUser.setNickname(dataUpdateUser.nickname());
+        }
+        if (dataUpdateUser.imageUrl() != null) {
+            updateUser.setImageUrl(dataUpdateUser.imageUrl());
+        }
+        if (dataUpdateUser.tag() != null) {
+            updateUser.setTag(dataUpdateUser.tag());
+        }
+    }
+
     //@PrePersist para inicializar dateCreated
     //Se asegura de que dateCreated siempre tenga un valor antes de ser guardado en la BD.
     @PrePersist
