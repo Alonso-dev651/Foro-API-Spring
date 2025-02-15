@@ -54,6 +54,17 @@ public class UserController {
         }
     }
 
+    @DeleteMapping("/delete/{id}")
+    @Transactional
+    public ResponseEntity deleteUser(@PathVariable Long id){
+        if (userRepository.existsById(id)){
+            userRepository.deleteById(id);
+            return ResponseEntity.status(HttpStatus.OK).build();
+        }else {
+            return ResponseEntity.badRequest().build();
+        }
+    }
+
     public DataReturnUser returnDataUser(User user){
         return new DataReturnUser(
                 user.getId(),user.getUsername(),user.getNickname(),user.getTag(),
