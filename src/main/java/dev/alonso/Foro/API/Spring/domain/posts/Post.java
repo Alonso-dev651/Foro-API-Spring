@@ -60,10 +60,23 @@ public class Post {
     @OneToMany(mappedBy = "post", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Review> reviews;
 
+    public Post(User userPost, DataNewPost dataNewPost) {
+        this.user = userPost;
+        this.title = dataNewPost.title();
+        this.type = dataNewPost.type();
+        if (!dataNewPost.textOptional().isBlank()){
+            this.textOptional = dataNewPost.textOptional();
+        }
+        if(!dataNewPost.imageOptional().isBlank()){
+            this.imageOptional = dataNewPost.imageOptional();
+        }
+    }
+
     //@PrePersist para inicializar dateCreated
     //Se asegura de que dateCreated siempre tenga un valor antes de ser guardado en la BD.
     @PrePersist
     protected void onCreate() {
         this.dateCreated = LocalDateTime.now();
+        this.active = true;
     }
 }

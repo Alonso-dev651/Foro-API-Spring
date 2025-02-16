@@ -1,5 +1,6 @@
 package dev.alonso.Foro.API.Spring.controller;
 
+import dev.alonso.Foro.API.Spring.domain.posts.DataReturnPost;
 import dev.alonso.Foro.API.Spring.domain.users.*;
 import jakarta.transaction.Transactional;
 import jakarta.validation.Valid;
@@ -8,6 +9,8 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 @RestController
 @RequestMapping("/users")
@@ -66,9 +69,17 @@ public class UserController {
     }
 
     public DataReturnUser returnDataUser(User user){
+        List<DataReturnPost> posts = user.getPosts().stream().map(
+                post -> new DataReturnPost(
+                        post.getUser().getUsername(), post.getTitle(), post.getType(), post.getTextOptional(), post.getImageOptional(),
+                        post.getDateCreated(), post.getLikes(), post.getRepliesCount(), post.getReviewsCount(), post.getVotesCount(),
+                        post.getVotesAverage(), post.getReplies(), post.getReviews()
+                )
+        ).toList();
+
         return new DataReturnUser(
                 user.getId(),user.getUsername(),user.getNickname(),user.getTag(),
-                user.getImageUrl(), user.getPosts(),user.getReplies(),user.getReviews(),
+                user.getImageUrl(),posts,user.getReplies(),user.getReviews(),
                 user.getDateCreated()
         );
     }

@@ -1,5 +1,6 @@
 package dev.alonso.Foro.API.Spring.domain.users;
 
+import dev.alonso.Foro.API.Spring.domain.posts.DataReturnPost;
 import dev.alonso.Foro.API.Spring.domain.posts.Post;
 import dev.alonso.Foro.API.Spring.domain.replies.Reply;
 import dev.alonso.Foro.API.Spring.domain.reviews.Review;
@@ -13,7 +14,7 @@ public record DataReturnUser(
         String nickname,
         Tag tag,
         String imageUrl,
-        List<Post> posts,
+        List<DataReturnPost> posts,
         List<Reply> replies,
         List<Review> reviews,
         LocalDateTime dateCreate

@@ -19,7 +19,7 @@ public class SecurityConfig {
                 .csrf(AbstractHttpConfigurer::disable)
                 .sessionManagement(sm -> sm.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
                 .authorizeHttpRequests(auth -> auth
-                        .requestMatchers(HttpMethod.POST, "/users/create").permitAll()
+                        .requestMatchers(HttpMethod.POST, "/users/create", "/posts/{username}/new").permitAll()
                         .requestMatchers(HttpMethod.GET, "/api/hello").permitAll()
                         .requestMatchers(HttpMethod.GET, "/users/**").permitAll()
                         .requestMatchers(HttpMethod.DELETE, "/users/delete/**").permitAll()
