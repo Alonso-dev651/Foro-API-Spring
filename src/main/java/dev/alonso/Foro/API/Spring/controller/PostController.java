@@ -37,8 +37,8 @@ public class PostController {
     @PostMapping("/{username}/{title}/like")
     @Transactional
     public ResponseEntity<DataLikesReturn> likePost(@PathVariable String username, @PathVariable String title){
-        if (userRepository.existsByUsername(username) && postRepository.existsByTitle(title)){
-            Post postExists = postRepository.findByTitle(title);
+        if (userRepository.existsByUsername(username) && postRepository.existsByTitleUrl(title)){
+            Post postExists = postRepository.findByTitleUrl(title);
             postExists.like();
             DataLikesReturn dataLikesReturn = new DataLikesReturn(postExists.getLikes());
 
@@ -51,8 +51,8 @@ public class PostController {
     @GetMapping("/{username}/{title}")
     @Transactional
     public ResponseEntity<DataReturnPost> getPost(@PathVariable String username, @PathVariable String title){
-        if (userRepository.existsByUsername(username) && postRepository.existsByTitle(title)){
-            Post postExists = postRepository.findByTitle(title);
+        if (userRepository.existsByUsername(username) && postRepository.existsByTitleUrl(title)){
+            Post postExists = postRepository.findByTitleUrl(title);
             DataReturnPost dataReturnPost = dataReturnPost(postExists);
             return ResponseEntity.status(HttpStatus.OK).body(dataReturnPost);
         }else {

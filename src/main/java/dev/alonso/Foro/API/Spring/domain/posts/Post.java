@@ -25,6 +25,8 @@ public class Post {
 
     @Column(nullable = false)
     private String title;
+    @Column(nullable = false)
+    private String titleUrl;
     private String type;
     private String textOptional;
     private String imageOptional;
@@ -63,6 +65,12 @@ public class Post {
     public Post(User userPost, DataNewPost dataNewPost) {
         this.user = userPost;
         this.title = dataNewPost.title();
+        boolean titleQuestion = dataNewPost.title().contains("¿") || dataNewPost.title().contains("?");
+        if (titleQuestion) {
+            this.titleUrl = dataNewPost.title().replaceAll("[¿?]", "");
+        } else {
+            this.titleUrl = dataNewPost.title();
+        }
         this.type = dataNewPost.type();
         if (!dataNewPost.textOptional().isBlank()){
             this.textOptional = dataNewPost.textOptional();
