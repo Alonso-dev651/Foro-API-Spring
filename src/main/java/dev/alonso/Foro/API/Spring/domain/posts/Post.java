@@ -72,6 +72,11 @@ public class Post {
         }
     }
 
+    public void like() {
+        int current_likes = getLikes();
+        setLikes(current_likes + 1);
+    }
+
     //@PrePersist para inicializar dateCreated
     //Se asegura de que dateCreated siempre tenga un valor antes de ser guardado en la BD.
     @PrePersist

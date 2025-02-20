@@ -19,9 +19,10 @@ public class SecurityConfig {
                 .csrf(AbstractHttpConfigurer::disable)
                 .sessionManagement(sm -> sm.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
                 .authorizeHttpRequests(auth -> auth
-                        .requestMatchers(HttpMethod.POST, "/users/create", "/posts/{username}/new").permitAll()
+                        .requestMatchers(HttpMethod.POST, "/users/create", "/posts/{username}/new","/posts/{username}/{title}/like")
+                        .permitAll()
                         .requestMatchers(HttpMethod.GET, "/api/hello").permitAll()
-                        .requestMatchers(HttpMethod.GET, "/users/**").permitAll()
+                        .requestMatchers(HttpMethod.GET, "/users/**","/posts/{username}/{title}").permitAll()
                         .requestMatchers(HttpMethod.DELETE, "/users/delete/**").permitAll()
                         .requestMatchers(HttpMethod.PUT, "/users/update/**").permitAll()
                         .requestMatchers("/v3/api-docs/**", "/swagger-ui.html", "/swagger-ui/**").permitAll()
