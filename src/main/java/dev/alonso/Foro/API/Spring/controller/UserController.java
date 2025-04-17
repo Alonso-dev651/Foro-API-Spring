@@ -40,7 +40,7 @@ public class UserController {
             DataReturnUser dataReturnUser = returnDataUser(existsUser);
             return ResponseEntity.status(HttpStatus.OK).body(dataReturnUser);
         }else {
-            return ResponseEntity.badRequest().build();
+            return ResponseEntity.ok().build();
         }
     }
 
@@ -53,7 +53,7 @@ public class UserController {
             DataReturnUser dataReturnUser = returnDataUser(existsUser);
             return ResponseEntity.status(HttpStatus.OK).body(dataReturnUser);
         } else {
-            return ResponseEntity.badRequest().build();
+            return ResponseEntity.ok().build();
         }
     }
 
@@ -64,7 +64,7 @@ public class UserController {
             userRepository.deleteById(id);
             return ResponseEntity.status(HttpStatus.OK).build();
         }else {
-            return ResponseEntity.badRequest().build();
+            return ResponseEntity.ok().build();
         }
     }
 

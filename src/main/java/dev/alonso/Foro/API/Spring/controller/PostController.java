@@ -22,7 +22,6 @@ public class PostController {
     @PostMapping("/{username}/new")
     @Transactional
     public ResponseEntity<DataReturnPost> newPost(@PathVariable String username, @RequestBody DataNewPost dataNewPost) {
-        System.out.println(username);
         if (userRepository.existsByUsername(username)) {
             User existsUser = userRepository.findByUsername(username);
             Post newPost = postRepository.save(new Post(existsUser, dataNewPost));
@@ -55,6 +54,31 @@ public class PostController {
             Post postExists = postRepository.findByTitleUrl(title);
             DataReturnPost dataReturnPost = dataReturnPost(postExists);
             return ResponseEntity.status(HttpStatus.OK).body(dataReturnPost);
+        }else {
+            return ResponseEntity.badRequest().build();
+        }
+    }
+
+    @PutMapping("/{username}/{title}")
+    @Transactional
+    public ResponseEntity<DataReturnPost> putPost(@PathVariable String title, @RequestBody DataUpdatePost dataUpdatePost){
+        if (postRepository.existsByTitleUrl(title)){
+            Post existsPost = postRepository.findByTitleUrl(title);
+            existsPost.updatePost(dataUpdatePost);
+            DataReturnPost dataReturnPost = dataReturnPost(existsPost);
+            return ResponseEntity.status(HttpStatus.OK).body(dataReturnPost);
+        } else {
+            return ResponseEntity.badRequest().build();
+        }
+    }
+
+    @DeleteMapping("/{username}/{title}")
+    @Transactional
+    public ResponseEntity deletePost(@PathVariable String title){
+        if (postRepository.existsByTitleUrl(title)){
+            Post existsPost = postRepository.findByTitleUrl(title);
+            existsPost.deletePost();
+            return ResponseEntity.status(HttpStatus.OK).build();
         }else {
             return ResponseEntity.badRequest().build();
         }

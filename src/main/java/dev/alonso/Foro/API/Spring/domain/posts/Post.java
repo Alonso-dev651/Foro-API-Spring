@@ -80,6 +80,19 @@ public class Post {
         }
     }
 
+    public void updatePost(DataUpdatePost dataUpdatePost){
+        if (dataUpdatePost.textOptional() != null){
+            this.textOptional = dataUpdatePost.textOptional();
+        }
+        if (dataUpdatePost.imageOptional() != null){
+            this.imageOptional = dataUpdatePost.textOptional();
+        }
+    }
+
+    public void deletePost(){
+        this.active = false;
+    }
+
     public void like() {
         int current_likes = getLikes();
         setLikes(current_likes + 1);
